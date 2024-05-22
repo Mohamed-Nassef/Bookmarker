@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookmarker</title>
+    <link rel="icon" href="./images/bookmark.ico" />
+    <!-- Fonts Links (Montserrat,Poppins)-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&family=Pacifico&family=Righteous&display=swap"
+      rel="stylesheet"
+    />
+    <!-- CSS Links  (bootstrap,fontawsome 6)-->
+    <link rel="stylesheet" href="./CSS/all.min.css" />
+    <link rel="stylesheet" href="./CSS/bootstrap.min.css" />
+    <link rel="stylesheet" href="./CSS/style.css" />
+    <!-- fontawsome 4 for old icons-->
+    <link rel="stylesheet" href="./CSS/font-awesome.min.css" />
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div class="bookmark_body container fixed-top">
+          <h1 class="text-center my-3">Bookmarker</h1>
+          <h2 class="text-center my-3">
+            <i class="fa-solid fa-bookmark"></i>
+            Bookmark your favorite sites
+            <i class="fa-solid fa-bookmark"></i>
+          </h2>
+
+          <div class="site-name my-3">
+            <label for="bookmarkName" class="pb-2 fw-semibold">
+              <i class="fa-solid fa-book-bookmark pe-2"></i>
+              Site Name</label
+            >
+            <input
+              oninput="validateInpute(this)"
+              type="text"
+              placeholder="Bookmark Name"
+              class="form-control"
+              id="bookmarkName"
+            />
+            <div class="alert alert-danger p-1 my-2 d-none">
+              Site Name consists of 5 to 30 characters no space and can us (
+              number or "_" )
+            </div>
+          </div>
+          <div class="site-url my-3">
+            <label for="bookmarkURL" class="pb-2 fw-semibold">
+              <i class="fa-solid fa-link pe-2"></i>Site URL</label
+            >
+            <input
+              oninput="validateInpute(this)"
+              type="url"
+              placeholder="Website URL"
+              class="form-control"
+              id="bookmarkURL"
+            />
+            <div class="alert alert-danger p-1 my-2 d-none">Invalid Url</div>
+          </div>
+          <div class="text-center my-3" id="editeBtn">
+            <a
+              href="#tablefooter"
+              onclick="addBookmark()"
+              class="btn btn-danger px-5"
+              id="submitBtn"
+            >
+              Submit
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="container sec-padding">
+        <table class="table my-4 text-center">
+          <thead>
+            <tr>
+              <th scope="col ">Index</th>
+              <th scope="col">Website Name</th>
+              <th scope="col">Visit</th>
+              <th scope="col">Delete</th>
+              <th scope="col">Edite</th>
+            </tr>
+          </thead>
+          <tbody id="tableRow"></tbody>
+          <tfoot id="tablefooter"></tfoot>
+        </table>
+      </div>
+    </main>
+
+    <!-- Js file (bootstrap)-->
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <!-- my js -->
+    <script src="./js/index.js"></script>
+  </body>
+</html>
