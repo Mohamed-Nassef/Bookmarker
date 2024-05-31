@@ -8,6 +8,11 @@ var bookmark = {
 };
 var cartona = "";
 var myTableRow = document.getElementById("tableRow");
+var undo = {
+  name: "",
+  url: "",
+};
+var undoIndex;
 
 // ======== cheak if loacalstorage have value ==========
 if (localStorage.getItem("bookmark") == null) {
@@ -30,6 +35,12 @@ function addBookmark() {
     localStorage.setItem("bookmark", JSON.stringify(bookmarkList));
     display(bookmarkList);
     clearInput();
+    document.getElementById("undoBtn").classList.remove("d-none");
+    document.getElementById(
+      "undoBtn"
+    ).innerHTML = `<a onclick="undosubmit()" type="button" class="btn btn-danger"
+      >UNDO</a
+    >`;
   } else alert("not valid data");
 }
 // ======== take list of bookmarks and display it ==========
@@ -60,7 +71,6 @@ function display(bookmarkList) {
     </td>
   </tr>`;
   }
-  console.log(cartona);
   myTableRow.innerHTML = cartona;
 }
 // ======== Clear input ==========
@@ -103,18 +113,23 @@ function editeBookmark(index) {
       name: bookmarkName.value,
       url: bookmarkURL.value,
     };
-    bookmarkList.splice(index, 1, bookmark);
+    var x = bookmarkList.splice(index, 1, bookmark);
+    // undo.name = x[0].name;
+    // undo.url = x[0].url;
+    undo = x[0];
+    undoIndex = index;
+    //console.log(undo);
     localStorage.setItem("bookmark", JSON.stringify(bookmarkList));
     display(bookmarkList);
     clearInput();
     document.getElementById("editeBtn").innerHTML = `<a
     href="#tablefooter"
-  onclick="addBookmark()"
-  class="btn btn-danger px-5"
-  id="submitBtn"
->
-  Submit
-</a>`;
+    onclick="addBookmark()"
+    class="btn btn-danger px-5"
+    id="submitBtn">Submitt</a>`;
+    document.getElementById("undoBtn").innerHTML = ` <a 
+    onclick="undoEdite()" type="button" class="btn btn-danger"
+    >UNDO EDITE</a>`;
   }
 }
 // ======== validat input with regex ======
@@ -133,4 +148,16 @@ function validateInpute(elment) {
     elment.classList.remove("is-valid");
     elment.nextElementSibling.classList.replace("d-none", "d-block");
   }
+}
+
+function undosubmit() {
+  deleteBookmark(bookmarkList.length - 1);
+  document.getElementById("undoBtn").classList.add("d-none");
+  clearInput();
+}
+function undoEdite() {
+  bookmarkList.splice(undoIndex, 1, undo);
+  localStorage.setItem("bookmark", JSON.stringify(bookmarkList));
+  document.getElementById("undoBtn").classList.add("d-none");
+  display(bookmarkList);
 }
